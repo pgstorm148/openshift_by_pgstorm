@@ -1,0 +1,2 @@
+api.example.com → Forward to API server IPs (port 6443)
+*.apps.example.com → Forward to Ingress Controller IPs
