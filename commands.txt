@@ -1,0 +1,16 @@
+#Use the oc CLI to ensure all nodes are running:
+oc get nodes
+
+#Check the cluster operators:
+oc get co
+
+#Configure Storage Classes: For AWS:
+oc patch storageclass gp2 -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+#Configure Storage Classes: For Azure:
+oc patch storageclass managed-premium -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+#Create a new user for regular administration:
+htpasswd -b /etc/origin/master/htpasswd newuser password
+
+
