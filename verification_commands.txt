@@ -1,0 +1,5 @@
+# Check OpenShift CLI installation
+oc version
+
+# Verify Kubernetes CLI
+kubectl version
