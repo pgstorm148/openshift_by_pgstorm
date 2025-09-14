@@ -1,0 +1,51 @@
+Step 1: Set Up AWS Environment
+1. Create a VPC:
+
+Use the AWS Management Console or CLI to create a Virtual Private Cloud (VPC).
+Allocate public and private subnets across at least two Availability Zones (AZs).
+Example AWS CLI command:
+aws ec2 create-vpc --cidr-block 10.0.0.0/16
+
+2. Create an S3 Bucket (Optional):
+Use this bucket to store OpenShift state files.
+aws s3api create-bucket --bucket my-openshift-cluster-state --region us-east-1
+
+3. Set Up IAM Roles:
+Create roles for OpenShift nodes (e.g., Control Plane, Workers).
+Attach policies like AmazonEC2FullAccess and AmazonS3FullAccess.
+
+Step 2: Configure OpenShift Installation
+1. Generate install-config.yaml:
+
+Use the OpenShift installer:
+openshift-install create install-config --dir=my-cluster
+
+Provide AWS-specific details like: - AWS region (e.g., us-east-1). - VPC ID and subnets. - Instance types for control plane and worker nodes (e.g., m5.large).
+
+2. Verify Configuration File:
+
+Open install-config.yaml and ensure accuracy:
+
+platform:
+  aws:
+    region: us-east-1
+    vpcID: vpc-12345678
+    subnets:
+    - subnet-1234abcd
+    - subnet-abcd1234
+
+Step 3: Deploy the Cluster
+1. Run the Installer:
+
+Initiate the deployment:
+openshift-install create cluster --dir=my-cluster
+
+Monitor the installation process through logs:
+tail -f my-cluster/.openshift_install.log
+
+2. Access the Cluster:
+
+After deployment, access the OpenShift web console using the provided URL.
+Log in with the kubeadmin credentials.
+
+
